@@ -1,6 +1,5 @@
-﻿using GorillaLocomotion;
+using GorillaLocomotion;
 using UnityEngine;
-using UnityEngine.XR;
 
 namespace DevHoldableEngine
 {
@@ -29,11 +28,8 @@ namespace DevHoldableEngine
 
         public void Update()
         {
-            InputDevices.GetDeviceAtXRNode(XRNode.LeftHand).TryGetFeatureValue(CommonUsages.grip, out float left);
-            bool leftGrip = left >= 0.5f;
-
-            InputDevices.GetDeviceAtXRNode(XRNode.RightHand).TryGetFeatureValue(CommonUsages.grip, out float right);
-            bool rightGrip = right >= 0.5f;
+            bool leftGrip = ControllerInputPoller.instance.leftControllerGripFloat >= 0.5;
+            bool rightGrip = ControllerInputPoller.instance.rightControllerGripFloat >= 0.5;
 
             var Distance = GrabDistance * Player.Instance.scale;
             if (DidSwap && (!SwappedLeft ? !leftGrip : !rightGrip))
@@ -91,6 +87,21 @@ namespace DevHoldableEngine
                 EquipmentInteractor.instance.rightHandHeldEquipment = null;
                 OnDrop(false);
             }
+        }
+
+        public override void OnHover(InteractionPoint pointHovered, GameObject hoveringHand)
+        {
+            throw new System.NotImplementedException(); // doing this so visual studio doesnt get mad at me for not having these
+        }
+
+        public override void OnGrab(InteractionPoint pointGrabbed, GameObject grabbingHand)
+        {
+            throw new System.NotImplementedException(); // doing this so visual studio doesnt get mad at me for not having these
+        }
+
+        public override void DropItemCleanup()
+        {
+            throw new System.NotImplementedException(); // doing this so visual studio doesnt get mad at me for not having these
         }
     }
 }
